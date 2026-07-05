@@ -1,69 +1,21 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { newsArticles } from "./data/news";
 
-const featuredStories = [
-  {
-    title: "Liverpool step up preparations for a title-chasing campaign",
-    summary:
-      "The Reds are building momentum with fresh tactical work and a confident squad outlook as the new season approaches.",
-    tag: "Breaking",
-    time: "8 min ago",
-  },
-  {
-    title: "Transfer targets intensify as scouts monitor elite midfield options",
-    summary:
-      "Clubs across Europe are watching the market closely with major moves expected before the window closes.",
-    tag: "Transfer",
-    time: "24 min ago",
-  },
-  {
-    title: "World Cup preview: the stars set to define the tournament",
-    summary:
-      "A new generation of talent is ready to shine on the biggest stage with global attention rising.",
-    tag: "World Cup",
-    time: "1 hr ago",
-  },
-];
+const featuredStories = newsArticles.slice(0, 3).map((article) => ({
+  title: article.title,
+  summary: article.excerpt,
+  tag: article.category,
+  time: article.date,
+  slug: article.slug,
+}));
 
-const latestNews = [
-  {
-    title: "Liverpool’s academy stars earn national recognition",
-    category: "Liverpool",
-    image:
-      "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Midfield maestro linked with a blockbuster switch",
-    category: "Transfers",
-    image:
-      "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Co-host nations prepare for the biggest tournament countdown",
-    category: "World Cup",
-    image:
-      "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Anfield legends revisit the glory days in exclusive interview",
-    category: "Legends",
-    image:
-      "https://images.unsplash.com/photo-1547347298-4074fc3086f0?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "The tactical blueprint behind Liverpool’s recent resurgence",
-    category: "Liverpool",
-    image:
-      "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Fan favorite joins the transfer conversation ahead of summer window",
-    category: "Transfers",
-    image:
-      "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=900&q=80",
-  },
-];
+const latestNews = newsArticles.map((article) => ({
+  ...article,
+  href: `/articles/${article.slug}`,
+}));
 
 const categories = [
   {
@@ -218,23 +170,20 @@ export default function Home() {
 
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {latestNews.map((item) => (
-            <article
-              key={item.title}
-              className="group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 shadow-lg shadow-black/20 transition duration-300 hover:-translate-y-2 hover:border-red-600/70"
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="h-48 w-full object-cover transition duration-500 group-hover:scale-105"
-              />
-              <div className="p-5">
-                <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-500">{item.category}</p>
-                <h3 className="mt-2 text-xl font-semibold text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-zinc-400">
-                  A quick look at the latest football story making waves across the global game.
-                </p>
-              </div>
-            </article>
+            <Link key={item.slug} href={item.href} className="group block">
+              <article className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 shadow-lg shadow-black/20 transition duration-300 hover:-translate-y-2 hover:border-red-600/70">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="h-48 w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="p-5">
+                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-500">{item.category}</p>
+                  <h3 className="mt-2 text-xl font-semibold text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-zinc-400">{item.excerpt}</p>
+                </div>
+              </article>
+            </Link>
           ))}
         </div>
       </section>
