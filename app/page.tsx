@@ -1,95 +1,292 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+const featuredStories = [
+  {
+    title: "Liverpool step up preparations for a title-chasing campaign",
+    summary:
+      "The Reds are building momentum with fresh tactical work and a confident squad outlook as the new season approaches.",
+    tag: "Breaking",
+    time: "8 min ago",
+  },
+  {
+    title: "Transfer targets intensify as scouts monitor elite midfield options",
+    summary:
+      "Clubs across Europe are watching the market closely with major moves expected before the window closes.",
+    tag: "Transfer",
+    time: "24 min ago",
+  },
+  {
+    title: "World Cup preview: the stars set to define the tournament",
+    summary:
+      "A new generation of talent is ready to shine on the biggest stage with global attention rising.",
+    tag: "World Cup",
+    time: "1 hr ago",
+  },
+];
+
+const latestNews = [
+  {
+    title: "Liverpool’s academy stars earn national recognition",
+    category: "Liverpool",
+    image:
+      "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    title: "Midfield maestro linked with a blockbuster switch",
+    category: "Transfers",
+    image:
+      "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    title: "Co-host nations prepare for the biggest tournament countdown",
+    category: "World Cup",
+    image:
+      "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    title: "Anfield legends revisit the glory days in exclusive interview",
+    category: "Legends",
+    image:
+      "https://images.unsplash.com/photo-1547347298-4074fc3086f0?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    title: "The tactical blueprint behind Liverpool’s recent resurgence",
+    category: "Liverpool",
+    image:
+      "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    title: "Fan favorite joins the transfer conversation ahead of summer window",
+    category: "Transfers",
+    image:
+      "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=900&q=80",
+  },
+];
+
+const categories = [
+  {
+    id: "liverpool",
+    title: "Liverpool",
+    summary: "Latest matchday reports, tactical insight, and club updates from Anfield.",
+  },
+  {
+    id: "transfers",
+    title: "Transfers",
+    summary: "Breaking market news, rumored signings, and the biggest stories around Europe.",
+  },
+  {
+    id: "world-cup",
+    title: "World Cup",
+    summary: "Competition previews, star players, and tournament momentum from every corner of the globe.",
+  },
+  {
+    id: "legends",
+    title: "Legends",
+    summary: "Memorable careers, historic performances, and exclusive voices from football’s greats.",
+  },
+];
+
+const socialLinks = [
+  { label: "Instagram", href: "https://www.instagram.com" },
+  { label: "X", href: "https://x.com" },
+  { label: "YouTube", href: "https://www.youtube.com" },
+];
+
 export default function Home() {
+  const [activeStory, setActiveStory] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveStory((current) => (current + 1) % featuredStories.length);
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const currentStory = featuredStories[activeStory];
+
   return (
     <main className="min-h-screen bg-black text-white">
-
-      {/* Header */}
-      <header className="border-b border-red-600">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-5">
-          <h1 className="text-3xl font-bold text-red-600">
+      <header className="border-b border-red-800/80 bg-black/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
+          <a href="#top" className="text-3xl font-black tracking-[0.2em] text-red-600">
             MLFF
-          </h1>
+          </a>
 
-          <nav className="hidden md:flex gap-8 uppercase text-sm">
-            <a href="#">Home</a>
-            <a href="#">Liverpool</a>
-            <a href="#">Transfers</a>
-            <a href="#">World Cup</a>
-            <a href="#">Legends</a>
+          <nav className="hidden items-center gap-7 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-300 md:flex">
+            <a href="#top" className="transition hover:text-red-500">
+              Home
+            </a>
+            <a href="#liverpool" className="transition hover:text-red-500">
+              Liverpool
+            </a>
+            <a href="#transfers" className="transition hover:text-red-500">
+              Transfers
+            </a>
+            <a href="#world-cup" className="transition hover:text-red-500">
+              World Cup
+            </a>
+            <a href="#legends" className="transition hover:text-red-500">
+              Legends
+            </a>
           </nav>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="max-w-7xl mx-auto py-16 px-6 text-center">
-        <p className="text-red-500 uppercase tracking-[6px]">
-          Myanmar Liverpool Fan Family
-        </p>
+      <section id="top" className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-16">
+        <div className="relative overflow-hidden rounded-[2rem] border border-red-950/70 bg-gradient-to-br from-zinc-950 via-black to-zinc-900 p-6 shadow-2xl shadow-red-950/20 md:p-10 lg:p-12">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(239,68,68,0.25),_transparent_45%)]" />
 
-        <h2 className="text-6xl font-bold mt-4">
-          MLFF OFFICIAL
-        </h2>
+          <div className="relative grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
+            <div>
+              <div className="mb-4 inline-flex rounded-full border border-red-700/60 bg-red-600/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-red-400">
+                Breaking News
+              </div>
+              <h2 className="max-w-3xl text-4xl font-black leading-tight text-white sm:text-5xl">
+                {currentStory.title}
+              </h2>
+              <p className="mt-4 max-w-2xl text-lg leading-8 text-zinc-300">
+                {currentStory.summary}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="#latest"
+                  className="rounded-full bg-red-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-700"
+                >
+                  Read the full report
+                </a>
+                <a
+                  href="#transfers"
+                  className="rounded-full border border-zinc-700 px-5 py-3 text-sm font-semibold text-zinc-200 transition hover:border-red-600 hover:text-red-400"
+                >
+                  Explore transfers
+                </a>
+              </div>
+              <div className="mt-8 flex gap-2">
+                {featuredStories.map((story, index) => (
+                  <button
+                    key={story.title}
+                    type="button"
+                    onClick={() => setActiveStory(index)}
+                    aria-label={`Show ${story.tag} story`}
+                    className={`h-2.5 rounded-full transition ${
+                      index === activeStory ? "w-10 bg-red-600" : "w-2.5 bg-zinc-700"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
 
-        <p className="text-gray-400 mt-6 text-xl">
-          The Home of Liverpool Fans in Myanmar
-        </p>
-
-        <button className="mt-8 bg-red-600 hover:bg-red-700 px-8 py-3 rounded-lg">
-          Latest News
-        </button>
-      </section>
-
-      {/* Latest News */}
-      <section className="max-w-7xl mx-auto px-6 pb-16">
-        <h2 className="text-3xl font-bold mb-8">
-          Latest News
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-8">
-
-          <div className="bg-zinc-900 rounded-xl overflow-hidden">
-            <img
-              src="https://picsum.photos/600/400?1"
-              className="w-full"
-            />
-            <div className="p-5">
-              <h3 className="font-bold text-xl">
-                Liverpool Ready For New Season
-              </h3>
+            <div className="space-y-3">
+              {featuredStories.map((story, index) => (
+                <button
+                  key={story.title}
+                  type="button"
+                  onClick={() => setActiveStory(index)}
+                  className={`rounded-2xl border p-4 text-left transition ${
+                    index === activeStory
+                      ? "border-red-700 bg-zinc-900"
+                      : "border-zinc-800 bg-zinc-900/80 hover:border-red-700 hover:bg-zinc-900"
+                  }`}
+                >
+                  <div className="mb-2 flex items-center justify-between text-xs uppercase tracking-[0.25em] text-zinc-500">
+                    <span>{story.tag}</span>
+                    <span>{index + 1}</span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-white">{story.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-zinc-400">{story.summary}</p>
+                  <p className="mt-3 text-sm text-red-400">{story.time}</p>
+                </button>
+              ))}
             </div>
           </div>
-
-          <div className="bg-zinc-900 rounded-xl overflow-hidden">
-            <img
-              src="https://picsum.photos/600/400?2"
-              className="w-full"
-            />
-            <div className="p-5">
-              <h3 className="font-bold text-xl">
-                World Cup Latest Updates
-              </h3>
-            </div>
-          </div>
-
-          <div className="bg-zinc-900 rounded-xl overflow-hidden">
-            <img
-              src="https://picsum.photos/600/400?3"
-              className="w-full"
-            />
-            <div className="p-5">
-              <h3 className="font-bold text-xl">
-                Transfer Window News
-              </h3>
-            </div>
-          </div>
-
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-zinc-800 py-10 text-center text-gray-500">
-        © 2026 MLFF Official
-      </footer>
+      <section id="latest" className="mx-auto max-w-7xl px-6 py-6 lg:px-8 lg:py-10">
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-red-500">Latest News</p>
+            <h2 className="text-3xl font-black text-white sm:text-4xl">Fresh updates from the pitch</h2>
+          </div>
+          <a href="#top" className="text-sm font-semibold text-zinc-300 transition hover:text-red-400">
+            Back to top
+          </a>
+        </div>
 
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {latestNews.map((item) => (
+            <article
+              key={item.title}
+              className="group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 shadow-lg shadow-black/20 transition duration-300 hover:-translate-y-2 hover:border-red-600/70"
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                className="h-48 w-full object-cover transition duration-500 group-hover:scale-105"
+              />
+              <div className="p-5">
+                <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-500">{item.category}</p>
+                <h3 className="mt-2 text-xl font-semibold text-white">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-zinc-400">
+                  A quick look at the latest football story making waves across the global game.
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-12">
+        <div className="mb-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-red-500">Explore by category</p>
+          <h2 className="text-3xl font-black text-white sm:text-4xl">Your next read, tailored to the game</h2>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {categories.map((category) => (
+            <article
+              key={category.id}
+              id={category.id}
+              className="rounded-2xl border border-zinc-800 bg-zinc-900/80 p-6 transition hover:border-red-700 hover:bg-zinc-900"
+            >
+              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-500">{category.title}</p>
+              <h3 className="mt-3 text-2xl font-semibold text-white">{category.title} Focus</h3>
+              <p className="mt-3 text-sm leading-7 text-zinc-400">{category.summary}</p>
+              <a href="#latest" className="mt-5 inline-flex text-sm font-semibold text-red-400 transition hover:text-red-300">
+                Read more →
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <footer className="border-t border-zinc-800 bg-zinc-950/80">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-10 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div>
+            <p className="text-2xl font-black tracking-[0.25em] text-red-600">MLFF</p>
+            <p className="mt-2 max-w-md text-sm leading-7 text-zinc-400">
+              The professional home for Liverpool football coverage, insights, and fan-first stories.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-4 text-sm font-semibold text-zinc-300">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-zinc-800 px-4 py-2 transition hover:border-red-600 hover:text-red-400"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
